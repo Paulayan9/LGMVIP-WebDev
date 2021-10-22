@@ -1,57 +1,55 @@
-import Users_card from "./Components/users";
-import './App.css';
+import Users_card from "./Components/user";
+import "./App.css";
 
-import React, { Component } from 'react'
-	
+import React, { Component } from "react";
+
 class App extends Component {
-  constructor(props){
-	super(props)
-		
-	// Set initial state
-	this.state = {users_data :[],
-                loading : true                
-  }
-  
+  constructor(props) {
+    super(props);
 
-	this.updateState = this.updateState.bind(this)
+    // Set initial state
+    this.state = { users_data: [], loading: true };
+
+    this.updateState = this.updateState.bind(this);
   }
-    
-  updateState(){
-      const link="https://reqres.in/api/users?page=1";
-      fetch(link)
-      .then(response => response.json())
+
+  updateState() {
+    const link = "https://reqres.in/api/users?page=1";
+    fetch(link)
+      .then((response) => response.json())
       .then((users) => {
-        
-        this.setState({users_data :users.data,
-                        loading: false
-        })
+        this.setState({ users_data: users.data, loading: false });
         console.log(users.data);
       })
       .catch((error) => {
-        console.error(error)
-      })
+        console.error(error);
+      });
   }
-    
-  render(){
-    return (<>
-      <nav>
+
+  render() {
+    return (
+      <>
+        <nav>
           <div className="box">
             <div className="row">
-            <div className="column1">
-              <h1>USERS </h1>
-            </div>
-            <div className="column2">
-            <button onClick={this.updateState}>Get Users</button>
-            </div>
+              <div className="column1">
+                <h1>USERS </h1>
+              </div>
+              <div className="column2">
+                <button onClick={this.updateState}>Get Users</button>
+              </div>
             </div>
           </div>
         </nav>
         <div className="box2">
-         <Users_card loading={this.state.loading} users={this.state.users_data}/>
-         </div>
-    </>
-    )
+          <Users_card
+            loading={this.state.loading}
+            users={this.state.users_data}
+          />
+        </div>
+      </>
+    );
   }
 }
-	
+
 export default App;
